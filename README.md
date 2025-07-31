@@ -1,11 +1,25 @@
-ESP-IDF template app
-====================
+# esp32-idf-epaper-embed
 
-This is a template application to be used with [Espressif IoT Development Framework](https://github.com/espressif/esp-idf).
+esp32-s3 idf demo for epaper which transfer from waveshare offical demo
 
-Please check [ESP-IDF docs](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for getting started instructions.
+## background
 
-*Code in this repository is in the Public Domain (or CC0 licensed, at your option.)
-Unless required by applicable law or agreed to in writing, this
-software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied.*
+I'm using ESP32 S3 board, and waveshare 2.9 inch ink screen(epaper)，ESP-IDF version 5.3.1. The waveshare website support Arduino demo but without esp-idf, so I try to transfer the offical Arduino demo to idf version. It works fine but the screen always flickering when partial refreshing, finally I modified some codes that the demo can run smoothly in esp-idf.
+
+<video width="320" height="240" controls>
+	<source src="./video/video.mp4" type="video/mp4">
+</video>
+
+```
+void EPD_2IN9_V2_Display_Partial(UBYTE *Image)
+{
+	UWORD i;
+
+//Reset
+    DEV_Digital_Write(EPD_RST_PIN, 0);
+    DEV_Delay_ms(100);						//原来是1，idf下必须加大延迟，否则频闪严重
+    DEV_Digital_Write(EPD_RST_PIN, 1);
+    DEV_Delay_ms(100);						//原来是2，idf下必须加大延迟，否则频闪严重
+
+```  
+

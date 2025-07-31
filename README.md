@@ -6,9 +6,7 @@ esp32-s3 idf demo for epaper which transfer from waveshare offical demo
 
 I'm using ESP32 S3 board, and waveshare 2.9 inch ink screen(epaper)，ESP-IDF version 5.3.1. The waveshare website support Arduino demo but without esp-idf, so I try to transfer the offical Arduino demo to idf version. It works fine but the screen always flickering when partial refreshing, finally I modified some codes that the demo can run smoothly in esp-idf.
 
-<video width="320" height="240" controls>
-	<source src="./video/video.mp4" type="video/mp4">
-</video>
+[![Watch the video](./video/pic.png)](https://youtube.com/shorts/8-su44ZCkks)
 
 ```
 void EPD_2IN9_V2_Display_Partial(UBYTE *Image)

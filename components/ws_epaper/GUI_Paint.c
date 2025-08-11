@@ -801,14 +801,51 @@ parameter:
 ******************************************************************************/
 void Paint_DrawImage(const unsigned char *image_buffer, UWORD xStart, UWORD yStart, UWORD W_Image, UWORD H_Image) 
 {
+	UWORD byte_height = H_Image;
+	if (Paint.Scale == 2) { // 2灰度模式
+	    byte_height = H_Image * 2;
+	}
+	printf("width:=%d, scale=%d\n", byte_height, Paint.Scale);
+
     UWORD x, y;
 	UWORD w_byte=(W_Image%8)?(W_Image/8)+1:W_Image/8;
     UDOUBLE Addr = 0;
 	UDOUBLE pAddr = 0;
-    for (y = 0; y < H_Image; y++) {
+    for (y = 0; y < byte_height; y++) {
         for (x = 0; x < w_byte; x++) {//8 pixel =  1 byte
             Addr = x + y * w_byte;
 			pAddr=x+(xStart/8)+((y+yStart)*Paint.WidthByte);
+            Paint.Image[pAddr] = (unsigned char)image_buffer[Addr];
+        }
+    }
+}
+
+//only for 4 Grey drawing
+void Paint_DrawImage4Grey(const unsigned char *image_buffer, UWORD xStart, UWORD yStart, UWORD W_Image, UWORD H_Image) 
+{
+    UWORD x, y;
+    UWORD w_byte;
+    UDOUBLE Addr = 0;
+    UDOUBLE pAddr = 0;
+
+    // 修正：根据颜色深度计算每行字节数
+    // 如果是 4 灰度模式，每个像素占 2 位，每字节存 4 个像素。
+    // 所以每行字节数是 W_Image / 4
+    // 假设 Paint.Scale == 4 代表 4 灰度模式
+    if (Paint.Scale == 4) {
+        w_byte = W_Image / 4;
+    } else { // 否则按黑白模式，每个像素 1 位
+        w_byte = (W_Image % 8) ? (W_Image / 8) + 1 : W_Image / 8;
+    }
+    
+    // 同样，目标图像的每行字节数也需要根据颜色深度来计算
+    UDOUBLE Paint_WidthByte_Effective = Paint.Width / 4; // 假设 Paint.Width 是总像素宽度
+
+    for (y = 0; y < H_Image; y++) {
+        for (x = 0; x < w_byte; x++) {
+            Addr = x + y * w_byte;
+            // 修正后的地址计算，使用正确的每行字节数
+            pAddr = (xStart / 4) + ((y + yStart) * Paint_WidthByte_Effective) + x;
             Paint.Image[pAddr] = (unsigned char)image_buffer[Addr];
         }
     }

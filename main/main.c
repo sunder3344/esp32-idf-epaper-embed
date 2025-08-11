@@ -166,23 +166,68 @@ void app_main()
 
 #endif
 
-#if 1   //show image for array
+#if 1   //show image 2 grey
+	EPD_2IN9_V2_Gray4_Init();
+	Paint_Clear(0xff);
+    Paint_NewImage(BlackImage, EPD_2IN9_V2_WIDTH, EPD_2IN9_V2_HEIGHT, 0, WHITE);
+    Paint_SetScale(2); 
+    Paint_Clear(WHITE);
+    printf("show image for 2 grey\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_DrawImage(gImage_ajax2, 0, 84, 128, 128);			//如果是4灰度的图片，Paint_DrawImage方法会把高度*2
+
+    EPD_2IN9_V2_4GrayDisplay(BlackImage);
+    DEV_Delay_ms(3000);
+#endif
+
+#if 1   //show image 4 grey for position
+	EPD_2IN9_V2_Gray4_Init();
+	Paint_Clear(0xff);
+    Paint_NewImage(BlackImage, EPD_2IN9_V2_WIDTH, EPD_2IN9_V2_HEIGHT, 0, WHITE);
+    Paint_SetScale(4); 
+    Paint_Clear(BLACK);
+    printf("show image for 4 grey position\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_DrawImage4Grey(gImage_ajax3, 0, 0, 32, 32);
+    Paint_DrawImage4Grey(gImage_ajax3, 128-32, 0, 32, 32);
+    Paint_DrawImage4Grey(gImage_ajax3, 0, 296-32, 32, 32);
+    Paint_DrawImage4Grey(gImage_ajax3, 128-32, 296-32, 32, 32);
+
+    EPD_2IN9_V2_4GrayDisplay(BlackImage);
+    DEV_Delay_ms(20000);
+#endif
+
+#if 1   //show image 4 grey
+	EPD_2IN9_V2_Gray4_Init();
+	Paint_Clear(0xff);
+    Paint_NewImage(BlackImage, EPD_2IN9_V2_WIDTH, EPD_2IN9_V2_HEIGHT, 0, WHITE);
+    Paint_SetScale(4); 
+    Paint_Clear(WHITE);
+    printf("show image for 4 grey\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_DrawImage4Grey(gImage_ajax2, 0, 100, 128, 128);
+
+    EPD_2IN9_V2_4GrayDisplay(BlackImage);
+    DEV_Delay_ms(100000);
+#endif
+
+#if 1   //show image for bitmap
 	EPD_2IN9_V2_Gray4_Init();
     Paint_NewImage(BlackImage, EPD_2IN9_V2_WIDTH, EPD_2IN9_V2_HEIGHT, 0, WHITE);  
     Paint_SetScale(4);
     Paint_Clear(WHITE);
-    printf("show image for array\r\n");
-    //Paint_SelectImage(BlackImage);
-    Paint_DrawBitMap(gImage_ajax);
+    printf("show image for bitmap\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_DrawBitMap(gImage_ajax2);
 
     EPD_2IN9_V2_4GrayDisplay(BlackImage);
     DEV_Delay_ms(20000);
 #endif
 
 #if 1   //show image for array
-	//EPD_2IN9_V2_Gray4_Init();
-    //Paint_NewImage(BlackImage, EPD_2IN9_V2_WIDTH, EPD_2IN9_V2_HEIGHT, 0, WHITE);  
-    //Paint_SetScale(4);
+	EPD_2IN9_V2_Gray4_Init();
+    Paint_NewImage(BlackImage, EPD_2IN9_V2_WIDTH, EPD_2IN9_V2_HEIGHT, 0, WHITE);  
+    Paint_SetScale(4);
     Paint_Clear(WHITE);
     printf("show image for array\r\n");
     Paint_SelectImage(BlackImage);

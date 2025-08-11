@@ -1,3 +1,3 @@
-idf_component_register(SRCS "main.c" "ImageData.c" "tot.c" "ajax.c" "bremen.c"
+idf_component_register(SRCS "main.c" "ImageData.c" "tot.c" "ajax.c" "bremen.c" "ajax2.c" "ajax3.c"
                     INCLUDE_DIRS "."
                     REQUIRES ws_epaper)

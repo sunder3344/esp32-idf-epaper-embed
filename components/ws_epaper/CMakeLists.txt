@@ -9,6 +9,7 @@ idf_component_register(
         "GUI_Paint.c"
         "font12CN.c"
         "font24CN.c"
+        "font24.c"
         "utility/EPD_2in9_V2.c"
 
     INCLUDE_DIRS
